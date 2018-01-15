@@ -11,9 +11,15 @@ class HoursThisWeekService {
     startTime = startTime || moment().startOf('week');
     const endTime = moment(startTime);
     endTime.utc().endOf('week');
-    return dates.filter(date => {
-      return date.isAfter(startTime) && date.isBefore(endTime);
-    });
+    const filtered = [];
+    for (let i=1; i<dates.length; i+=2) {
+      const date = dates[i];
+      if (date.isAfter(startTime) && date.isBefore(endTime)) {
+        filtered.push(dates[i-1]);
+        filtered.push(date);
+      }
+    }
+    return filtered;
   }
 
 }
