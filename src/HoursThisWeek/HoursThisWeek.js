@@ -6,7 +6,7 @@ class HoursThisWeek extends React.Component {
 
   render() {
     return (
-      <div className='col s12 m6'>
+      <div className='col s12 m9'>
         <canvas ref={(element) => { this.chart = element; }}></canvas>
       </div>
     );
@@ -15,6 +15,7 @@ class HoursThisWeek extends React.Component {
   componentDidMount() {
     const datesThisWeek = service.filterThisWeek();
     const hours = service.hoursPerDay(datesThisWeek);
+    console.log('hours this week', hours);
     const ctx = this.chart.getContext('2d');
     let data = [0, 0, 0, 0, 0, 0, 0];
     const day = moment().startOf('week');

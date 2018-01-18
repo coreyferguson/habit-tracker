@@ -10,6 +10,21 @@ class TimeService {
     this._dates = this._data.map(s => moment(new Date(s)));
   }
 
+  filterLast30Days() {
+    const end = moment();
+    const start = moment();
+    start.add(-30, 'days');
+    const filtered = [];
+    for (let i=1; i<this._dates.length; i+=2) {
+      const date = this._dates[i];
+      if (date.isAfter(start) && date.isBefore(end)) {
+        filtered.push(this._dates[i-1]);
+        filtered.push(date);
+      }
+    }
+    return filtered;
+  }
+
   filterThisWeek(weekOf) {
     weekOf = weekOf || moment();
     weekOf.startOf('week');
@@ -33,13 +48,13 @@ class TimeService {
       const start = dates[i-1];
       const end = dates[i];
       const hours = end.diff(start, 'hours', true);
-      if (hoursPerDay[end.format('YYYY-MM-DD')] === undefined) {
-        hoursPerDay[end.format('YYYY-MM-DD')] = hours;
+      const key = end.format('YYYY-MM-DD');
+      if (hoursPerDay[key] === undefined) {
+        hoursPerDay[key] = hours;
       } else {
-        hoursPerDay[end.format('YYYY-MM-DD')] += hours;
+        hoursPerDay[key] += hours;
       }
     }
-    // hoursPerDay = hoursPerDay.map(hours => hours.toFixed(2));
     return hoursPerDay;
   }
 
