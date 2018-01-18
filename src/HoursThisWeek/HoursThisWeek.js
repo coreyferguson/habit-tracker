@@ -6,12 +6,8 @@ class HoursThisWeek extends React.Component {
 
   render() {
     return (
-      <div className='row'>
-        <canvas
-          className='col s12'
-          height='400px'
-          ref={(element) => { this.chart = element; }}>
-        </canvas>
+      <div className='col s12 m6'>
+        <canvas ref={(element) => { this.chart = element; }}></canvas>
       </div>
     );
   }
@@ -43,7 +39,7 @@ class HoursThisWeek extends React.Component {
           borderWidth: 1
         }]
       }
-    })
+    });
   }
 
 }

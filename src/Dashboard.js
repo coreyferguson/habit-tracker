@@ -5,8 +5,11 @@ const HoursThisWeek = require('./HoursThisWeek');
 module.exports = props => {
   return (
     <div className='container'>
-      <h1>Dashboard</h1>
-      <HoursThisWeek />
+      <h1>Study Time</h1>
+
+      <div className='row'>
+        <HoursThisWeek />
+      </div>
     </div>
   );
 };
