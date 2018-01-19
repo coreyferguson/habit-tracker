@@ -35,6 +35,13 @@ module.exports = {
       }, {
         loader: "sass-loader" // compiles Sass to CSS
       }]
+    }, {
+      test: /\.html$/,
+      use: [
+        {
+          loader: 'html-loader'
+        }
+      ]
     }]
   },
 
@@ -42,7 +49,8 @@ module.exports = {
    'react': 'React',
    'react-dom': 'ReactDOM',
    'react-router': 'ReactRouter',
-   'axios': 'axios'
+   'axios': true,
+   'moment': true
   },
 
   devtool: 'inline-source-map',
