@@ -4,31 +4,50 @@ const service = require('../timeService');
 
 class HoursThisWeek extends React.Component {
 
+  constructor(props) {
+    super(props);
+    const datesThisWeek = service.filterThisWeek();
+    this.hours = service.hoursPerDay(datesThisWeek);
+  }
+
   render() {
     return (
-      <div className='col s12 m9'>
-        <canvas ref={(element) => { this.chart = element; }}></canvas>
+      <div className='row'>
+        <div className='col s12 m3'>
+          <h2>Hours This Week</h2>
+          <table className='bordered'>
+            <tbody>
+              <tr>
+                <td>Total</td>
+                <td>{Math.round(this.getTotalHours())}</td>
+              </tr>
+              <tr>
+                <td>Average</td>
+                <td>{Math.round(this.getAverageHours())}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div className='col s12 m9'>
+          <canvas ref={(element) => { this.chart = element; }}></canvas>
+        </div>
       </div>
     );
   }
 
   componentDidMount() {
-    const datesThisWeek = service.filterThisWeek();
-    const hours = service.hoursPerDay(datesThisWeek);
-    console.log('hours this week', hours);
     const ctx = this.chart.getContext('2d');
     let data = [0, 0, 0, 0, 0, 0, 0];
     const day = moment().startOf('week');
     for (let i=0; i<7; i++) {
-      if (hours[day.format('YYYY-MM-DD')])
-        data[i] += hours[day.format('YYYY-MM-DD')];
+      if (this.hours[day.format('YYYY-MM-DD')])
+        data[i] += this.hours[day.format('YYYY-MM-DD')];
       day.add(1, 'day');
     }
     data = data.map(d => d.toFixed(2));
     const chart = new Chart(ctx, {
       type: 'bar',
       options: {
-        title: { display: true, text: 'Hours This Week' },
         legend: { display: false }
       },
       data: {
@@ -36,11 +55,25 @@ class HoursThisWeek extends React.Component {
         datasets: [{
           label: 'Hours',
           data: data,
-          backgroundColor: 'rgba(244, 67, 54, 0.5)',
+          backgroundColor: 'rgba(70, 175, 70, 0.5)',
           borderWidth: 1
         }]
       }
     });
+  }
+
+  getTotalHours() {
+    let totalHours = 0;
+    for (let key in this.hours) {
+      totalHours += this.hours[key];
+    }
+    return totalHours;
+  }
+
+  getAverageHours() {
+    const totalHours = this.getTotalHours();
+    const average = totalHours / 7;
+    return average;
   }
 
 }
