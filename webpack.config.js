@@ -5,14 +5,12 @@ const path = require('path');
 
 module.exports = {
   entry: './src/index.js',
+
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'index.js'
   },
-  devtool: 'inline-source-map',
-  devServer: {
-    contentBase: './dist'
-  },
+
   plugins: [
     new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin({
@@ -20,6 +18,7 @@ module.exports = {
       template: 'static/index.html'
     })
   ],
+
   module: {
     rules: [{
       test: /\.js$/,
@@ -37,5 +36,18 @@ module.exports = {
         loader: "sass-loader" // compiles Sass to CSS
       }]
     }]
+  },
+
+  externals: {
+   'react': 'React',
+   'react-dom': 'ReactDOM',
+   'react-router': 'ReactRouter',
+   'axios': 'axios'
+  },
+
+  devtool: 'inline-source-map',
+  devServer: {
+    contentBase: './dist'
   }
+
 };
