@@ -13,23 +13,25 @@ class HoursThisMonth extends React.Component {
   render() {
     return (
       <div className='row'>
-        <div className='col s12 m3'>
+        <div className='col s12'>
           <h2>Hours This Month</h2>
+        </div>
+        <div className='col s12 m9'>
+          <canvas ref={(element) => { this.chart = element; }}></canvas>
+        </div>
+        <div className='col s12 m3'>
           <table className='bordered'>
             <tbody>
               <tr>
-                <td>Total</td>
+                <td>Total hours for the last 30 days</td>
                 <td>{Math.round(this.getTotalHours())}</td>
               </tr>
               <tr>
-                <td>Average</td>
+                <td>Average hours per day</td>
                 <td>{Math.round(this.getAverageHours())}</td>
               </tr>
             </tbody>
           </table>
-        </div>
-        <div className='col s12 m9'>
-          <canvas ref={(element) => { this.chart = element; }}></canvas>
         </div>
       </div>
     );
@@ -58,7 +60,7 @@ class HoursThisMonth extends React.Component {
         datasets: [{
           label: 'Hours',
           data,
-          backgroundColor: 'rgba(70, 175, 70, 0.5)',
+          backgroundColor: 'rgba(139, 195, 74, 0.5)',
           borderWidth: 1
         }]
       }

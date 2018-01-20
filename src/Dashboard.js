@@ -6,7 +6,7 @@ import './styles.scss';
 
 module.exports = props => {
   return (
-    <div className='container'>
+    <div>
       <nav className='hero'>
         <div className='nav-wrapper'>
           <div className='brand-logo'>
@@ -14,10 +14,10 @@ module.exports = props => {
           </div>
         </div>
       </nav>
-
-
-      <HoursThisWeek />
-      <HoursThisMonth />
+      <div className='container'>
+        <HoursThisWeek />
+        <HoursThisMonth />
+      </div>
     </div>
   );
 };
